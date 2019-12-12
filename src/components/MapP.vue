@@ -6,51 +6,35 @@
   :cluster-options="{
     1: {clusterDisableClickZoom: true}
   }"
-  :behaviors="['ruler']"
-  :controls="['trafficControl']"
-  :placemarks="placemarks"
+  :behaviors="['drag']"
+  :controls="['fullscreenControl', 'zoomControl']"
   map-type="map"
-  @map-was-initialized="initHandler"
 >
 
     <ymap-marker
-      marker-type="placemark"
-      :coords="[54.7, 39.7]"
-      hint-content="Hint content 1"
-      :balloon="{header: 'header', body: 'body', footer: 'footer'}"
-      :icon="{color: 'green', glyph: 'cinema'}"
-      cluster-name="1"
+      v-for="(p, index) in points"
+      :key="index"
+      :coords="p.coords"
+      hint-content="p.name"
+      cluster-name="p.name"
+      markerId="p.name"
     ></ymap-marker>
-
-    <ymap-marker
-      marker-type="placemark"
-      :coords="[54.6, 39.8]"
-      hint-content="Hint content 1"
-      :balloon="{header: 'header', body: 'body', footer: 'footer'}"
-      :icon="{color: 'green', glyph: 'cinema'}"
-      cluster-name="1"
-    ></ymap-marker>
-
-    <ymap-marker
-      marker-type="circle"
-      :coords="[54.62896654088406, 39.731893822753904]"
-      circle-radius="1600"
-      hint-content="Hint content 1"
-      :marker-fill="{color: '#000000', opacity: 0.4}"
-      :marker-stroke="{color: '#ff0000', width: 5}"
-      :balloon="{header: 'header', body: 'body', footer: 'footer'}"
-    ></ymap-marker>
-
 </yandex-map>
 </template>
 
 <script>
 import { yandexMap, ymapMarker } from 'vue-yandex-maps'
+import points from '../assets/point_list'
 export default {
   name: 'MapP',
   components: {
     yandexMap,
     ymapMarker
+  },
+  data () {
+    return {
+      points: points
+    }
   }
 }
 </script>

@@ -36,7 +36,7 @@ export default {
   },
   data () {
     return {
-      splitterModel: 50 // start at 50%
+      splitterModel: 20 // start at 50%
     }
   },
 
