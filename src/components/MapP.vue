@@ -9,6 +9,7 @@
   :behaviors="['drag']"
   :controls="['fullscreenControl', 'zoomControl']"
   map-type="map"
+  @map-was-initialized="onMapInitialized"
 >
 
     <ymap-marker
@@ -33,7 +34,16 @@ export default {
   },
   data () {
     return {
-      points: points
+      points: points,
+      map: null
+    }
+  },
+  methods: {
+    onMapInitialized (map) {
+      this.map = map
+    },
+    onSizeChanged () {
+      this.map.container.fitToViewport()
     }
   }
 }

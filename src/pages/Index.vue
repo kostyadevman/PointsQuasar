@@ -1,8 +1,5 @@
 <template>
   <q-page class="flex flex-center">
-
-    <q-resize-observer @resize="onResize" :debounce="0" />
-
     <q-splitter
       id="photos"
       v-model="splitterModel"
@@ -17,7 +14,8 @@
       </template>
 
       <template v-slot:after>
-        <p-map></p-map>
+        <q-resize-observer @resize="onResizeMap"/>
+        <p-map ref="map"></p-map>
       </template>
 
     </q-splitter>
@@ -43,8 +41,8 @@ export default {
   methods: {
     // we are using QResizeObserver to keep
     // this example mobile-friendly
-    onResize ({ width }) {
-      this.width = width
+    onResizeMap () {
+      this.$refs.map.onSizeChanged()
     }
   }
 }
