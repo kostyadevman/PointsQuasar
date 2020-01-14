@@ -25,8 +25,8 @@
 
 <script>
 import { yandexMap, ymapMarker } from 'vue-yandex-maps'
-import points from '../assets/point_list'
 export default {
+  props: ['points'],
   name: 'MapP',
   components: {
     yandexMap,
@@ -34,7 +34,6 @@ export default {
   },
   data () {
     return {
-      points: points,
       map: null
     }
   },
