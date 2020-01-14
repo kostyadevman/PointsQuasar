@@ -10,12 +10,12 @@
     >
 
       <template v-slot:before>
-        <p-table></p-table>
+        <p-table :points="points"></p-table>
       </template>
 
       <template v-slot:after>
         <q-resize-observer @resize="onResizeMap"/>
-        <p-map ref="map"></p-map>
+        <p-map :points="points" ref="map"></p-map>
       </template>
 
     </q-splitter>
@@ -26,6 +26,10 @@
 <script>
 import TableP from '../components/TableP.vue'
 import MapP from '../components/MapP.vue'
+import axios from 'axios'
+import MockAdapter from 'axios-mock-adapter'
+import points from '../assets/point_list'
+
 export default {
   name: 'PageIndex',
   components: {
@@ -34,7 +38,8 @@ export default {
   },
   data () {
     return {
-      splitterModel: 20 // start at 50%
+      splitterModel: 20, // start at 50%
+      points: []
     }
   },
 
@@ -43,7 +48,26 @@ export default {
     // this example mobile-friendly
     onResizeMap () {
       this.$refs.map.onSizeChanged()
+    },
+    getPoints () {
+      let self = this
+      axios.get('http://127.0.0.1:8000/api/v1/points.json')
+        .then(function (response) {
+          console.log(response.data)
+          self.points = response.data.points
+        })
+    },
+    makeFakeApi () {
+      var mock = new MockAdapter(axios)
+      mock.onGet('http://127.0.0.1:8000/api/v1/points.json').reply(200, {
+        points
+      })
     }
+
+  },
+  mounted () {
+    this.makeFakeApi()
+    this.getPoints()
   }
 }
 </script>

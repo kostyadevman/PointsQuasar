@@ -1,7 +1,7 @@
 <template>
   <q-table
         title="Treats"
-        :data="data"
+        :data="points"
         :columns="columns"
         row-key="name"
         :visible-columns="visibleColumns"
@@ -37,8 +37,8 @@
 </template>
 
 <script>
-import points from '../assets/point_list'
 export default {
+  props: ['points'],
   name: 'TableP',
   data () {
     return {
@@ -54,8 +54,7 @@ export default {
           sortable: true
         },
         { name: 'coords', align: 'center', label: 'Coords', field: 'coords', sortable: true }
-      ],
-      data: points
+      ]
     }
   }
 }
