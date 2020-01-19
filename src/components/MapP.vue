@@ -42,7 +42,9 @@ export default {
       this.map = map
     },
     onSizeChanged () {
-      this.map.container.fitToViewport()
+      if (this.map) {
+        this.map.container.fitToViewport()
+      }
     }
   }
 }

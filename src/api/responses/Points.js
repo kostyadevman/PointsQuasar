@@ -1,4 +1,4 @@
-const points = [
+const Points = [
   {
     name: 'point_1',
     coords: [54.73, 39.73]
@@ -41,4 +41,4 @@ const points = [
   }
 ]
 
-export default points
+export default Points
