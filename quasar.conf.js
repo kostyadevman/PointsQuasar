@@ -1,5 +1,6 @@
 // Configuration for your app
 // https://quasar.dev/quasar-cli/quasar-conf-js
+require('dotenv').config()
 
 module.exports = function (ctx) {
   return {
@@ -78,6 +79,13 @@ module.exports = function (ctx) {
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
     devServer: {
+      proxy: {
+        // proxy all requests starting with /api to jsonplaceholder
+        '/api': {
+          target: process.env.POINTS_API_URL,
+          changeOrigin: true
+        }
+      },
       // https: true,
       // port: 8080,
       open: true // opens browser window automatically
@@ -139,7 +147,6 @@ module.exports = function (ctx) {
       // id: 'org.cordova.quasar.app',
       // noIosLegacyBuildFlag: true, // uncomment only if you know what you are doing
     },
-
 
     // https://quasar.dev/quasar-cli/developing-capacitor-apps/configuring-capacitor
     capacitor: {

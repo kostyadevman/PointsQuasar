@@ -26,9 +26,7 @@
 <script>
 import TableP from '../components/TableP.vue'
 import MapP from '../components/MapP.vue'
-import axios from 'axios'
-import MockAdapter from 'axios-mock-adapter'
-import points from '../assets/point_list'
+import { getPoints } from '../api'
 
 export default {
   name: 'PageIndex',
@@ -48,26 +46,13 @@ export default {
     // this example mobile-friendly
     onResizeMap () {
       this.$refs.map.onSizeChanged()
-    },
-    getPoints () {
-      let self = this
-      axios.get('http://127.0.0.1:8000/api/v1/points.json')
-        .then(function (response) {
-          console.log(response.data)
-          self.points = response.data.points
-        })
-    },
-    makeFakeApi () {
-      var mock = new MockAdapter(axios)
-      mock.onGet('http://127.0.0.1:8000/api/v1/points.json').reply(200, {
-        points
-      })
     }
-
   },
   mounted () {
-    this.makeFakeApi()
-    this.getPoints()
+    const self = this
+    getPoints().then(function (response) {
+      self.points = response.data
+    })
   }
 }
 </script>
